@@ -14,6 +14,9 @@
 
   <title>Manu Tintas & Ferragista</title>
 
+  <!-- Preload imagem do Hero (LCP crítico) -->
+  <link rel="preload" as="image" href="assets/imgs/fachada.webp" imagesrcset="assets/imgs/fachada.webp" type="image/webp" fetchpriority="high">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -142,6 +145,44 @@
       50%       { box-shadow: 0 4px 32px rgba(37,211,102,0.85); }
     }
 
+    /* ============================================================
+       BARRA DE PROGRESSO DE LEITURA
+    ============================================================ */
+    #read-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: var(--red);
+      z-index: 2000;
+      transition: width 0.1s linear;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Delays escalonados para grids */
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+    .reveal-delay-5 { transition-delay: 0.40s; }
+    .reveal-delay-6 { transition-delay: 0.48s; }
+    .reveal-delay-7 { transition-delay: 0.56s; }
+    .reveal-delay-8 { transition-delay: 0.64s; }
+    .reveal-delay-9 { transition-delay: 0.72s; }
+
     /* Respeita preferência do SO por menos movimento */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -150,6 +191,7 @@
         transition-duration: 0.01ms !important;
       }
       html { scroll-behavior: auto; }
+      .reveal { opacity: 1 !important; transform: none !important; }
     }
 
     /* ============================================================
@@ -228,28 +270,28 @@
     ============================================================ */
     #hero {
       position: relative;
-      min-height: auto;
+      min-height: 560px;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       overflow: hidden;
-      padding: 72px 0 48px;
+      padding: 56px 0 48px;
     }
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('assets/imgs/fachada.jpeg');
+      background-image: url('assets/imgs/fachada.webp');
       background-size: cover;
-      background-position: center top;
+      background-position: center center;
     }
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(18,32,80,0.88) 0%, rgba(0,0,0,0.72) 100%);
+      background: linear-gradient(to bottom, rgba(18,32,80,0.85) 0%, rgba(18,32,80,0.93) 100%);
     }
     .hero-content {
       position: relative;
       z-index: 2;
-      padding: 40px 0;
+      padding: 24px 0;
     }
     .hero-badge {
       display: inline-flex;
@@ -877,6 +919,7 @@
   </style>
 </head>
 <body>
+  <div id="read-progress" aria-hidden="true"></div>
 
   <!-- ============================================================
        01. HEADER STICKY
@@ -921,7 +964,7 @@
         Tudo que você precisa<br>para sua <span>obra</span>,<br>em um só lugar
       </h1>
       <p class="hero-subtitle">
-        Tintas Diamante, Collor e NewColor. Material elétrico, hidráulico e ferragens. Atendimento rápido e preço justo para profissionais e clientes finais.
+        Material elétrico, hidráulico e ferragens. Atendimento rápido e preço justo para profissionais e clientes finais.
       </p>
       <div class="hero-ctas">
         <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20um%20or%C3%A7amento.%20Vim%20pelo%20site%20da%20Manu%20Tintas" target="_blank" rel="noopener" class="btn btn-wa btn-lg">
@@ -948,23 +991,23 @@
   <section id="beneficios" aria-label="Nossos diferenciais rápidos">
     <div class="container">
       <div class="beneficios-grid">
-        <div class="beneficio-item">
+        <div class="beneficio-item reveal reveal-delay-1">
           <div class="beneficio-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
           </div>
           <div class="beneficio-title">Estoque completo</div>
           <div class="beneficio-desc">Não perca viagem — temos tudo aqui</div>
         </div>
-        <div class="beneficio-item">
+        <div class="beneficio-item reveal reveal-delay-2">
           <div class="beneficio-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
           <div class="beneficio-title">Marcas confiáveis</div>
-          <div class="beneficio-desc">Diamante, Collor e NewColor</div>
+          <div class="beneficio-desc">NewColor</div>
         </div>
-        <div class="beneficio-item">
+        <div class="beneficio-item reveal reveal-delay-3">
           <div class="beneficio-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
           </div>
           <div class="beneficio-title">Atendimento ágil</div>
           <div class="beneficio-desc">Resposta rápida no WhatsApp</div>
@@ -978,69 +1021,69 @@
   ============================================================ -->
   <section id="produtos">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2 class="section-title">Nossos Produtos</h2>
         <p class="section-subtitle">Clique na categoria e fale direto com a gente</p>
       </div>
       <div class="produtos-grid">
 
-        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20tintas%20imobili%C3%A1rias%20(Diamante%2FCollor%2FNewColor).%20Podem%20me%20ajudar%20com%20pre%C3%A7o%20e%20disponibilidade%3F" target="_blank" rel="noopener" class="produto-card">
+        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20tintas%20imobili%C3%A1rias%20(Diamante%2FCollor%2FNewColor).%20Podem%20me%20ajudar%20com%20pre%C3%A7o%20e%20disponibilidade%3F" target="_blank" rel="noopener" class="produto-card reveal reveal-delay-1">
           <div class="produto-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg></div>
           <div class="produto-title">Tintas Imobiliárias</div>
           <div class="produto-desc">Diamante, Collor, NewColor e mais. Para paredes internas e externas.</div>
           <div class="produto-cta">Ver produtos →</div>
         </a>
 
-        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20material%20el%C3%A9trico.%20T%C3%AAm%20dispon%C3%ADvel%3F" target="_blank" rel="noopener" class="produto-card">
+        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20material%20el%C3%A9trico.%20T%C3%AAm%20dispon%C3%ADvel%3F" target="_blank" rel="noopener" class="produto-card reveal reveal-delay-2">
           <div class="produto-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
           <div class="produto-title">Material Elétrico</div>
           <div class="produto-desc">Cabos, disjuntores, tomadas, interruptores e mais.</div>
           <div class="produto-cta">Ver produtos →</div>
         </a>
 
-        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20material%20hidr%C3%A1ulico.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener" class="produto-card">
+        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20material%20hidr%C3%A1ulico.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener" class="produto-card reveal reveal-delay-3">
           <div class="produto-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
           <div class="produto-title">Material Hidráulico</div>
           <div class="produto-desc">Tubos, conexões, registros e tudo para encanamento.</div>
           <div class="produto-cta">Ver produtos →</div>
         </a>
 
-        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Tenho%20interesse%20em%20chuveiros%20e%20filtros.%20O%20que%20voc%C3%AAs%20t%C3%AAm%3F" target="_blank" rel="noopener" class="produto-card">
+        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Tenho%20interesse%20em%20chuveiros%20e%20filtros.%20O%20que%20voc%C3%AAs%20t%C3%AAm%3F" target="_blank" rel="noopener" class="produto-card reveal reveal-delay-4">
           <div class="produto-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="16" y1="13" x2="16" y2="21"/><line x1="8" y1="13" x2="8" y2="21"/><line x1="12" y1="15" x2="12" y2="23"/><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"/></svg></div>
           <div class="produto-title">Chuveiros e Filtros</div>
           <div class="produto-desc">Chuveiros elétricos, filtros de água e acessórios.</div>
           <div class="produto-cta">Ver produtos →</div>
         </a>
 
-        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20esmalte%20sint%C3%A9tico%20ou%20verniz.%20Quais%20marcas%20e%20pre%C3%A7os%3F" target="_blank" rel="noopener" class="produto-card">
+        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20esmalte%20sint%C3%A9tico%20ou%20verniz.%20Quais%20marcas%20e%20pre%C3%A7os%3F" target="_blank" rel="noopener" class="produto-card reveal reveal-delay-5">
           <div class="produto-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.5.5.98 2.27 1.54 3.5 1.54 2.21 0 4-1.8 4-4.02 0-1.67-1.35-3.04-2.5-3.04z"/></svg></div>
           <div class="produto-title">Esmalte e Verniz</div>
           <div class="produto-desc">Esmalte sintético, vernizes e acabamentos em geral.</div>
           <div class="produto-cta">Ver produtos →</div>
         </a>
 
-        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20tinta%20automotiva.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener" class="produto-card">
+        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20tinta%20automotiva.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener" class="produto-card reveal reveal-delay-6">
           <div class="produto-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg></div>
           <div class="produto-title">Tinta Automotiva</div>
           <div class="produto-desc">Tintas automotivas para uso profissional e doméstico.</div>
           <div class="produto-cta">Ver produtos →</div>
         </a>
 
-        <a href="trinchas.html" class="produto-card">
+        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20trinchas%20para%20pintura.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener" class="produto-card reveal reveal-delay-7">
           <div class="produto-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18.37 2.63 14 7l-1.59-1.59a2 2 0 0 0-2.82 0L8 7l9 9 1.59-1.59a2 2 0 0 0 0-2.82L17 10l4.37-4.37a2.12 2.12 0 1 0-3-3z"/><path d="M9 8c-2 3-4 3.5-7 4l8 10c2-1 6-5 6-7"/><path d="M14.5 17.5 4.5 15"/></svg></div>
           <div class="produto-title">Trinchas</div>
           <div class="produto-desc">Trinchas para pintura de paredes, acabamentos e detalhes.</div>
           <div class="produto-cta">Ver produtos →</div>
         </a>
 
-        <a href="acessorios.html" class="produto-card">
+        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20acess%C3%B3rios%20para%20pintura.%20O%20que%20voc%C3%AAs%20t%C3%AAm%3F" target="_blank" rel="noopener" class="produto-card reveal reveal-delay-8">
           <div class="produto-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg></div>
           <div class="produto-title">Acessórios</div>
           <div class="produto-desc">Acessórios para pintura e acabamento profissional.</div>
           <div class="produto-cta">Ver produtos →</div>
         </a>
 
-        <a href="rolos-pads.html" class="produto-card">
+        <a href="https://wa.me/5562998136715?text=Ol%C3%A1!%20Preciso%20de%20rolos%20e%20PADs%20para%20pintura.%20Podem%20me%20ajudar%3F" target="_blank" rel="noopener" class="produto-card reveal reveal-delay-9">
           <div class="produto-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
           <div class="produto-title">Rolos e PAD's</div>
           <div class="produto-desc">Rolos e PAD's para aplicação de tinta em todas as superfícies.</div>
@@ -1056,7 +1099,7 @@
   ============================================================ -->
   <section id="marcas" aria-label="Marcas parceiras">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2 class="section-title">Marcas que a gente trabalha</h2>
         <p class="section-subtitle">Qualidade reconhecida, preço justo</p>
       </div>
@@ -1071,16 +1114,28 @@
       <!-- Galeria de fotos da loja -->
       <div class="fotos-grid">
         <div class="foto-item">
-          <img src="assets/imgs/interior-tintas.jpeg" loading="lazy" alt="Interior da loja com latas de tinta Diamante e Collor" width="400" height="300">
+          <picture>
+            <source srcset="assets/imgs/interior-tintas.webp" type="image/webp">
+            <img src="assets/imgs/interior-tintas.jpeg" loading="lazy" alt="Interior da loja com latas de tinta Diamante e Collor" width="400" height="300">
+          </picture>
         </div>
         <div class="foto-item">
-          <img src="assets/imgs/interior-estoque.jpeg" loading="lazy" alt="Corredor com amplo estoque de materiais" width="400" height="300">
+          <picture>
+            <source srcset="assets/imgs/interior-estoque.webp" type="image/webp">
+            <img src="assets/imgs/interior-estoque.jpeg" loading="lazy" alt="Corredor com amplo estoque de materiais" width="400" height="300">
+          </picture>
         </div>
         <div class="foto-item">
-          <img src="assets/imgs/interior-esmaltes.jpeg" loading="lazy" alt="Prateleiras com esmaltes e vernizes" width="400" height="300">
+          <picture>
+            <source srcset="assets/imgs/interior-esmaltes.webp" type="image/webp">
+            <img src="assets/imgs/interior-esmaltes.jpeg" loading="lazy" alt="Prateleiras com esmaltes e vernizes" width="400" height="300">
+          </picture>
         </div>
         <div class="foto-item">
-          <img src="assets/imgs/fachada.jpeg" loading="lazy" alt="Fachada da Manu Tintas & Ferragista" width="400" height="300">
+          <picture>
+            <source srcset="assets/imgs/fachada.webp" type="image/webp">
+            <img src="assets/imgs/fachada.jpeg" loading="lazy" alt="Fachada da Manu Tintas & Ferragista" width="400" height="300">
+          </picture>
         </div>
       </div>
     </div>
@@ -1091,25 +1146,25 @@
   ============================================================ -->
   <section id="profissionais">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2 class="section-title">Para quem trabalha todos os dias</h2>
         <p class="section-subtitle">A Manu Tintas é o fornecedor preferido de quem não pode perder tempo</p>
       </div>
       <div class="profissionais-grid">
 
-        <div class="profissional-card">
+        <div class="profissional-card reveal reveal-delay-1">
           <div class="profissional-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18.37 2.63 14 7l-1.59-1.59a2 2 0 0 0-2.82 0L8 7l9 9 1.59-1.59a2 2 0 0 0 0-2.82L17 10l4.37-4.37a2.12 2.12 0 1 0-3-3z"/><path d="M9 8c-2 3-4 3.5-7 4l8 10c2-1 6-5 6-7"/><path d="M14.5 17.5 4.5 15"/></svg></div>
           <div class="profissional-title">Pintores</div>
           <div class="profissional-desc">Tinta imobiliária, esmalte, verniz e tudo que você precisa para entregar um serviço de qualidade. Estoque sempre abastecido para você não travar a obra.</div>
         </div>
 
-        <div class="profissional-card">
+        <div class="profissional-card reveal reveal-delay-2">
           <div class="profissional-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
           <div class="profissional-title">Eletricistas</div>
           <div class="profissional-desc">Cabos, disjuntores, tomadas, interruptores e materiais certificados. Tudo aqui, para você não perder viagem e fechar o serviço no prazo.</div>
         </div>
 
-        <div class="profissional-card">
+        <div class="profissional-card reveal reveal-delay-3">
           <div class="profissional-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
           <div class="profissional-title">Encanadores</div>
           <div class="profissional-desc">Tubos, conexões, registros, chuveiros e filtros. Variedade completa para resolver qualquer serviço sem precisar ir em várias lojas.</div>
@@ -1130,13 +1185,13 @@
   ============================================================ -->
   <section id="diferenciais">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2 class="section-title">Por que a Manu Tintas é diferente</h2>
         <p class="section-subtitle">Veja o que faz os nossos clientes voltarem sempre</p>
       </div>
       <div class="diferenciais-grid">
 
-        <div class="diferencial-card">
+        <div class="diferencial-card reveal reveal-delay-1">
           <div class="diferencial-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
           </div>
@@ -1144,7 +1199,7 @@
           <div class="diferencial-desc">Você não precisa ir de loja em loja. Aqui tem tinta, ferragem, material elétrico e hidráulico — tudo em um único ponto de compra.</div>
         </div>
 
-        <div class="diferencial-card">
+        <div class="diferencial-card reveal reveal-delay-2">
           <div class="diferencial-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           </div>
@@ -1152,7 +1207,7 @@
           <div class="diferencial-desc">A maioria dos nossos clientes veio por indicação. Isso diz tudo sobre como a gente atende. Aqui você não é mais um — é tratado pelo nome.</div>
         </div>
 
-        <div class="diferencial-card">
+        <div class="diferencial-card reveal reveal-delay-3">
           <div class="diferencial-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
@@ -1160,7 +1215,7 @@
           <div class="diferencial-desc">Localização estratégica, perto do Friboi, aeródromo e aeroporto. No caminho de quem está na obra ou a caminho do trabalho.</div>
         </div>
 
-        <div class="diferencial-card">
+        <div class="diferencial-card reveal reveal-delay-4">
           <div class="diferencial-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           </div>
@@ -1177,7 +1232,7 @@
   ============================================================ -->
   <section id="localizacao">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2 class="section-title">Como chegar na Manu Tintas</h2>
         <p class="section-subtitle">Estamos no coração da região — pertinho de você</p>
       </div>
@@ -1200,8 +1255,7 @@
             </div>
             <div class="loc-text">
               <strong>Horário de funcionamento</strong>
-              <p>Seg–Sáb: 07h às 18h<br>Dom: 08h às 13h</p>
-              <p style="font-size:0.78rem;color:#aaa;margin-top:4px">(confirmar com a loja)</p>
+              <p>Seg–Sex: 07h às 18h<br>Sáb: 08h às 12h<br>Dom: Fechado</p>
             </div>
           </div>
 
@@ -1334,7 +1388,37 @@
         floatWa.classList.add('visible');
       }, 1000);
 
-      /* 3. Lazy load Google Maps iframe via IntersectionObserver */
+      /* 3. Barra de progresso de leitura */
+      var progressBar = document.getElementById('read-progress');
+      window.addEventListener('scroll', function () {
+        var scrollTop = window.scrollY || window.pageYOffset;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = pct + '%';
+      }, { passive: true });
+
+      /* 4. Scroll Reveal via IntersectionObserver */
+      if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(function (el) {
+          revealObserver.observe(el);
+        });
+      } else {
+        /* Fallback: mostra tudo se IntersectionObserver não existir */
+        document.querySelectorAll('.reveal').forEach(function (el) {
+          el.classList.add('visible');
+        });
+      }
+
+      /* 5. Lazy load Google Maps iframe via IntersectionObserver */
       var mapaContainer = document.getElementById('mapa-container');
       var mapaIframe = document.getElementById('mapa-iframe');
       if ('IntersectionObserver' in window) {
